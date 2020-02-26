@@ -11,7 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #Importing Dataset
-dataset = pd.read_csv("/home/balasriharsha/Desktop/ML/train.csv")
+dataset = pd.read_csv("titanic.csv")
 
 #Removing Unnecessary Columns
 dataset.drop(["Name","Ticket"],axis=1,inplace=True)
@@ -69,3 +69,26 @@ sr = SVR()
 sr.fit(X_train_one,Y_train_one)
 
 Y_pred_sr = sc_Y.inverse_transform(sr.predict(X_test_one))
+
+
+for i in range(len(Y_pred_sr)):
+    if(Y_pred_sr[i]<0.5):
+        Y_pred_sr[i]=0
+    else:
+        Y_pred_sr[i]=1
+
+for i in range(len(Y_pred_lr)):
+    if(Y_pred_lr[i]<0.5):
+        Y_pred_lr[i]=0
+    else:
+        Y_pred_lr[i]=1
+
+sr_count = 0
+lr_count = 0
+for i in range(len(Y_test)):
+    if(int(Y_pred_sr[i])==Y_test[i]):
+        sr_count += 1
+    elif(int(Y_pred_lr[i])==Y_test[i]):
+        lr_count += 1
+print((sr_count*100)/179)
+print((lr_count*100)/179)
