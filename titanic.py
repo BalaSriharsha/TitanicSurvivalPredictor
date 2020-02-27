@@ -103,6 +103,12 @@ for i in range(len(Y_pred_lr)):
     else:
         Y_pred_lr[i]=1
         
+for i in range(len(Y_pred_dtr)):
+    if(Y_pred_dtr[i]<0.5):
+        Y_pred_dtr[i]=0
+    else:
+        Y_pred_dtr[i]=1
+        
 for i in range(len(Y_pred_rfr)):
     if(Y_pred_rfr[i]<0.5):
         Y_pred_rfr[i]=0
